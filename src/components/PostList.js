@@ -1,11 +1,28 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {connect} from 'react-redux'
+import PostListItem from './PostListItem'
 
-class PostList extends Component {
-  render() {
+
+const PostList = (props) => {
+
     return (
-      <h1>Post List </h1>
+      <div>
+        <h1>Posts List </h1>
+        <p>{props.posts.length} posts</p>
+
+        {props.posts.map((post) => {
+          return <PostListItem key={post.id} {...post} />
+        })}
+
+      </div>
+
     )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts
   }
 }
 
-export default PostList
+export default connect(mapStateToProps)(PostList)

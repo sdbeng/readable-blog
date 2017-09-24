@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
+  // Link
 } from 'react-router-dom'
 import Header from '../components/Header'
 import App from '../components/App'
