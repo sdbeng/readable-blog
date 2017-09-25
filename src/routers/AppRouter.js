@@ -10,6 +10,8 @@ import App from '../components/App'
 import Page1 from '../components/Page1'
 // import HelpPage from '../components/HelpPage'
 import Page2 from '../components/Page2'
+import EditPostPage from '../components/EditPostPage'
+import AddPostPage from '../components/AddPostPage'
 import HelpPage from '../components/HelpPage'
 import NotFoundPage from '../components/NotFoundPage'
 
@@ -21,7 +23,8 @@ const AppRouter = () => (
         <Route path="/" component={App} exact={true} />
         <Route path="/category1" component={Page1} />
         <Route path="/category2" component={Page2} />
-        {/* <Route path="/edit/:id" component={EditPostPage} /> */}
+        <Route path="/add" component={AddPostPage} />
+        <Route path="/edit/:id" component={EditPostPage} />
         <Route path="/help" component={HelpPage} />
         <Route  component={NotFoundPage} />
       </Switch>

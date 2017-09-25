@@ -1,4 +1,4 @@
-import {ADD_POST, REMOVE_POST, EDIT_POST } from '../actions'
+import {ADD_POST, REMOVE_POST, EDIT_POST,SET_TEXT_FILTER,SORT_BY_DATE,SORT_BY_VOTESCORE } from '../actions'
 import moment from 'moment'
 
 //demo data
@@ -50,8 +50,38 @@ export const postsReducer = (state=postsReducerDefaultState, action) => {
             ...post,
             ...action.updates
           }
+        }else {
+          return post
         }
       })
+    default:
+      return state
+  }
+}
+
+//Filters reducer
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy:'date'
+}
+
+export const filtersReducer = (state=filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    case SET_TEXT_FILTER:
+      return {
+        ...state,
+        text: action.text
+      }
+    case SORT_BY_DATE:
+      return {
+        ...state,
+        sortBy: 'date'
+      }
+    case SORT_BY_VOTESCORE:
+      return {
+        ...state,
+        sortBy: 'voteScore'
+      }
     default:
       return state
   }
