@@ -58,25 +58,37 @@ class PostForm extends Component {
       <div>
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            placeholder="enter title"
-            autoFocus
-            value={this.state.title}
-            onChange={this.onTitleChange}
-          />
-          <textarea
-            placeholder='add content to your post'
-            value={this.state.body}
-            onChange={this.onBodyChange}
-            >
-          </textarea>
-          <input
-            type="text"
-            placeholder='enter author'
-            value={this.state.author}
-            onChange={this.onAuthorChange}
-          />
+          <label>
+            title:
+            <input
+              type="text"
+              placeholder="enter title"
+              autoFocus
+              value={this.state.title}
+              onChange={this.onTitleChange}
+            />
+          </label>
+
+          <label>
+            Add post content:
+            <textarea
+              placeholder='add content to your post'
+              value={this.state.body}
+              onChange={this.onBodyChange}
+              >
+            </textarea>
+          </label>
+
+          <label>
+            author:
+            <input
+              type="text"
+              placeholder='enter author'
+              value={this.state.author}
+              onChange={this.onAuthorChange}
+            />
+          </label>
+
           <button>Add Post</button>
         </form>
       </div>

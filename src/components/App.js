@@ -3,7 +3,7 @@ import '../App.css';
 // import AppRouter from '../routers/AppRouter'
 // import Header from './Header'
 import PostList from './PostList'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 class App extends Component {
   render() {
