@@ -1,7 +1,9 @@
 import uuid from 'uuid'
 import moment from 'moment'
+import axios from 'axios'
 
 //define some constants
+export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -11,6 +13,14 @@ export const INCREMENT_VOTESCORE = 'INCREMENT_VOTESCORE'
 export const SET_TEXT_FILTER = 'SET_TEXT_FILTER'
 
 //action creators
+export const fetchPosts = () => {
+  return (dispatch) => {
+    axios
+      .get('http://localhost:3001/posts',{ headers: { 'Authorization': '123react' }})
+      .then(res => dispatch({ type: FETCH_POSTS, payload: res.data }))
+  }
+}
+
 //destructuring values coming in from user, then attach them to the post object
 export const addPost = ({title='Default Title',body='',author='Default Author',category='General',createdAt= 0, voteScore=1,deleted=false} = {}) => ({
   type: ADD_POST,

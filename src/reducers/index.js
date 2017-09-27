@@ -33,6 +33,7 @@ const demoState = {
 const postsReducerDefaultState = []
 
 export const postsReducer = (state=postsReducerDefaultState, action) => {
+  console.log('log actions: ', action);
   switch(action.type){
     case ADD_POST:
       return [
