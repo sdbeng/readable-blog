@@ -13,22 +13,36 @@ export const INCREMENT_VOTESCORE = 'INCREMENT_VOTESCORE'
 export const SET_TEXT_FILTER = 'SET_TEXT_FILTER'
 
 //action creators
+export const fetchPostSuccess = (posts) => {
+  return {
+    type:FETCH_POSTS,
+    posts
+  }
+}
+
 export const fetchPosts = () => {
   return (dispatch) => {
     axios
       .get('http://localhost:3001/posts',{ headers: { 'Authorization': '123react' }})
-      .then(res => dispatch({ type: FETCH_POSTS, payload: res.data }))
+      .then(response => dispatch(fetchPostSuccess(response.data)))
   }
 }
+// export const fetchPosts = () => {
+//   return (dispatch) => {
+//     axios
+//       .get('http://localhost:3001/posts',{ headers: { 'Authorization': '123react' }})
+//       .then(res => dispatch({ type: FETCH_POSTS, payload: res.data }))
+//   }
+// }
 
 //destructuring values coming in from user, then attach them to the post object
-export const addPost = ({title='Default Title',body='',author='Default Author',category='General',createdAt= 0, voteScore=1,deleted=false} = {}) => ({
+export const addPost = ({title='Default Title',body='',author='Default Author',category='General',timestamp= 0, voteScore=1,deleted=false} = {}) => ({
   type: ADD_POST,
   post: {
     id: uuid(),
     title,
     body,
-    createdAt,
+    timestamp,
     author,
     category,
     voteScore,

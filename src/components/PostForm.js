@@ -7,7 +7,7 @@ class PostForm extends Component {
     this.state = {
       title: props.post ? props.post.title : '',
       body: props.post ? props.post.body : '',
-      createdAt: props.post ? moment(props.post.createdAt) : moment(),
+      timestamp: props.post ? moment(props.post.timestamp) : moment(),
       category: props.category ? props.post.category : '',
       error: '',
     }
@@ -44,7 +44,7 @@ class PostForm extends Component {
       this.props.onSubmit({
         title:this.state.title,
         body:this.state.body,
-        createdAt:this.state.createdAt.valueOf(),
+        timestamp:this.state.timestamp.valueOf(),
         author:this.state.author,
         voteScore:this.state.voteScore,
         category:this.state.category,

@@ -12,21 +12,22 @@ class App extends Component {
   }
   render() {
     console.log('this.props',this.props);
-    console.log('this.props.posts',this.props.posts);
+    console.log('this.props.posts',this.props.posts);//undefined
     return (
       <div className="App">
         <PostList />
+
 
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     posts: state.posts
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts
+  }
+}
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {
@@ -34,4 +35,4 @@ class App extends Component {
 //   }
 // } //it give error: actions must be plain objects. Use custom middleware for async actions.
 
-export default connect(null, actions)(App);
+export default connect(mapStateToProps, actions)(App);

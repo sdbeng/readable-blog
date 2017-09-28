@@ -4,7 +4,7 @@ import moment from 'moment'
 export default (posts, { text, sortBy }) => {
   // return posts.filter((post) => {
   //
-  //   // const createdAtMoment = moment(post.createdAt)
+  //   // const timestampMoment = moment(post.timestamp)
   //   //issue: title is undefined ??? isn't it supposed to come from posts??
   //   const titleMatch = post.title.toLowerCase().includes(text.toLowerCase())
   //
@@ -12,7 +12,7 @@ export default (posts, { text, sortBy }) => {
   // })
   return posts.sort((a, b) => {
     if(sortBy === 'date'){
-      return a.createdAt < b.createdAt ? 1 : -1
+      return a.timestamp < b.timestamp ? 1 : -1
     }else if(sortBy === 'voteScore') {
       return a.voteScore < b.voteScore ? 1 : -1
     }

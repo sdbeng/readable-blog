@@ -1,4 +1,4 @@
-import {ADD_POST, REMOVE_POST, EDIT_POST,SET_TEXT_FILTER,SORT_BY_DATE,SORT_BY_VOTESCORE } from '../actions'
+import {FETCH_POSTS, ADD_POST, REMOVE_POST, EDIT_POST,SET_TEXT_FILTER,SORT_BY_DATE,SORT_BY_VOTESCORE } from '../actions'
 import moment from 'moment'
 
 //demo data
@@ -8,7 +8,7 @@ const demoState = {
     id: 'ihweoehorh8f48fh48', //later it will be from uuid later
     title: 'React is awesome', //later will be coming from an user <input>
     body: 'You can build complex apps using React - Redux',
-    createdAt: 0, //it will be generated from moment or Date.now()
+    timestamp: 0, //it will be generated from moment or Date.now()
     author: 'Francis Hope',//later will be coming from an user <input>
     category: 'react', //for now, it will be one of the defined categories from api
     voteScore: 1, //votes post received, default =1
@@ -17,7 +17,7 @@ const demoState = {
   comments: [{
     id: '4gt5itihjkhg8', //later it will be from uuid later
     parentId: 0, //id of parent post ??
-    createdAt: 0, //it will be generated from moment or Date.now()
+    timestamp: 0, //it will be generated from moment or Date.now()
     body: 'In my opinion I say Redux is...',
     author: 'Alan Touring',//later will be coming from an user <input>
     voteScore: 1, //votes comment received, default =1
@@ -35,6 +35,8 @@ const postsReducerDefaultState = []
 export const postsReducer = (state=postsReducerDefaultState, action) => {
   console.log('log actions: ', action);
   switch(action.type){
+    case FETCH_POSTS:
+    return action.posts
     case ADD_POST:
       return [
         ...state,
