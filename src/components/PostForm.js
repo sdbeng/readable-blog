@@ -7,7 +7,7 @@ class PostForm extends Component {
     this.state = {
       title: props.post ? props.post.title : '',
       body: props.post ? props.post.body : '',
-      timestamp: props.post ? moment(props.post.timestamp) : moment(),
+      timestamp: props.post ? moment(props.post.timestamp) : moment().format(),
       category: props.category ? props.post.category : '',
       error: '',
     }
@@ -26,6 +26,11 @@ class PostForm extends Component {
   onAuthorChange = (e) => {
     e.persist()
     this.setState(() => ({author: e.target.value}))
+  }
+  //onCategoryChange
+  onCategoryChange = (e) => {
+    e.persist()
+    this.setState(() => ({category: e.target.value}))
   }
   //onSubmit
   onSubmit = (e) => {
@@ -86,6 +91,15 @@ class PostForm extends Component {
               placeholder='enter author'
               value={this.state.author}
               onChange={this.onAuthorChange}
+            />
+          </label>
+          <label>
+            Category:
+            <input
+              type="text"
+              placeholder="category..."
+              value={this.state.category}
+              onChange={this.onCategoryChange}
             />
           </label>
 

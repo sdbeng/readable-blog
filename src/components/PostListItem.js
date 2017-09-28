@@ -8,7 +8,7 @@ const PostListItem = ({ id, title, body, author, timestamp, category, voteScore,
     </Link>
     <p>{body}</p>
     <p>{author} - {category}</p>
-    <p>score: {voteScore}- date: {timestamp}</p>
+    <p>score: {voteScore} - date: {timestamp}</p>
   </div>
 )
 

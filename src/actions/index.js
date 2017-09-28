@@ -11,6 +11,9 @@ export const SORT_BY_DATE = 'SORT_BY_DATE'
 export const SORT_BY_VOTESCORE = 'SORT_BY_VOTESCORE'
 export const INCREMENT_VOTESCORE = 'INCREMENT_VOTESCORE'
 export const SET_TEXT_FILTER = 'SET_TEXT_FILTER'
+//
+export const CREATE_POST = 'CREATE_POST'
+
 
 //action creators
 export const fetchPostSuccess = (posts) => {
@@ -19,6 +22,14 @@ export const fetchPostSuccess = (posts) => {
     posts
   }
 }
+
+//an alternative to addPost action - see which one is more convenient
+// export const createPostSuccess = (post) => {
+//   return {
+//     type: CREATE_POST:
+//     post
+//   }
+// }
 
 export const fetchPosts = () => {
   return (dispatch) => {
@@ -35,8 +46,21 @@ export const fetchPosts = () => {
 //   }
 // }
 
+//This action creator will create a new post in the server
+export const addNewPost = (post) => {
+  return (dispatch) => {
+    return axios.posts('/posts', { headers: { 'Authorization': '123react' }}, post)
+      .then(response => {
+        dispatch(addPost(response.data))
+      })
+      .catch(error => {
+        throw(error)
+      })
+  }
+}
+
 //destructuring values coming in from user, then attach them to the post object
-export const addPost = ({title='Default Title',body='',author='Default Author',category='General',timestamp= 0, voteScore=1,deleted=false} = {}) => ({
+export const addPost = ({title='',body='',author='',category='',timestamp= moment().format(), voteScore=1, deleted=false} = {}) => ({
   type: ADD_POST,
   post: {
     id: uuid(),

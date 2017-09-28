@@ -7,7 +7,7 @@ const PostList = (props) => {
 
     return (
       <div>
-        <h1> List of posts</h1>
+        {/* List of posts */}
 
         {props.posts.map((post) => {
           return <PostListItem key={post.id} {...post} />
@@ -20,9 +20,9 @@ const PostList = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts,
-    filters: state.filters
-    // posts: selectPosts(state.posts, state.filters)
+    // posts: state.posts,
+    // filters: state.filters
+    posts: selectPosts(state.posts, state.filters)
   }
 }
 

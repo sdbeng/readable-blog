@@ -3,7 +3,9 @@ import '../App.css';
 import {connect} from 'react-redux'
 import PostList from './PostList'
 import * as actions from '../actions'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+// import AddPostPage from './AddPostPage'
+import moment from 'moment'
 
 class App extends Component {
 
@@ -11,10 +13,17 @@ class App extends Component {
     this.props.fetchPosts()
   }
   render() {
+    console.log('relative time ', moment().startOf('hour').fromNow());
+    console.log('Now time ', moment().format());
     console.log('this.props',this.props);
-    console.log('this.props.posts',this.props.posts);//undefined
+    console.log('this.props.posts',this.props.posts);//now they have data fetched from server!!
+
     return (
       <div className="App">
+        <Link to='/add'>
+          Add new post
+        </Link>
+
         <PostList />
 
 
