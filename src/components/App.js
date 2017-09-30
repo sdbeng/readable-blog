@@ -12,6 +12,10 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchPosts()
   }
+
+  // onFetchChange = () => {
+  //   this.props.fetchPosts
+  // }
   render() {
     console.log('relative time ', moment().startOf('hour').fromNow());
     console.log('Now time ', moment().format());
@@ -25,7 +29,7 @@ class App extends Component {
         </Link>
 
         <PostList />
-
+        {/* <button onChange={this.onFetchChange}>Fetch</button> */}
 
       </div>
     );

@@ -4,15 +4,15 @@ import PostListItem from './PostListItem'
 import selectPosts from '../selectors'
 
 const PostList = (props) => {
-
+console.log('this.props', this.props);
     return (
       <div>
-        {/* List of posts */}
 
-        {props.posts.map((post) => {
+        {/* {props.posts.map((post) => {
           return <PostListItem key={post.id} {...post} />
-        })}
-        <p>{props.posts.length} posts</p>
+        })} */}
+        {/* <p>{props.posts.length} posts</p> */}
+
       </div>
 
     )
@@ -20,9 +20,9 @@ const PostList = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // posts: state.posts,
-    // filters: state.filters
-    posts: selectPosts(state.posts, state.filters)
+    posts: state.posts,
+    filters: state.filters
+    // posts: selectPosts(state.posts, state.filters)
   }
 }
 

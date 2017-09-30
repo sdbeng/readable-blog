@@ -1,62 +1,76 @@
-import {FETCH_POSTS, ADD_POST, REMOVE_POST, EDIT_POST,SET_TEXT_FILTER,SORT_BY_DATE,SORT_BY_VOTESCORE } from '../actions'
+import {FETCH_POSTS, ADD_POST, REMOVE_POST, EDIT_POST,SET_TEXT_FILTER,SORT_BY_DATE,SORT_BY_VOTESCORE,
+SELECT_CATEGORY, REFRESH_CATEGORY, REQUEST_POSTS, RECEIVED_POSTS } from '../actions'
 import moment from 'moment'
+import {combineReducers} from 'redux'
 
-//demo data
+//categories reducer
+const selectedCategory = (state='react', action) => {
+  switch (action.type) {
+    case SELECT_CATEGORY:
+      return action.category
+    default:
+      return state
+  }
+}
+//posts reducer
+const postsDefaultState = {isFetching: false, didRefresh: false, items: []}
 
-const demoState = {
-  posts: [{
-    id: 'ihweoehorh8f48fh48', //later it will be from uuid later
-    title: 'React is awesome', //later will be coming from an user <input>
-    body: 'You can build complex apps using React - Redux',
-    timestamp: 0, //it will be generated from moment or Date.now()
-    author: 'Francis Hope',//later will be coming from an user <input>
-    category: 'react', //for now, it will be one of the defined categories from api
-    voteScore: 1, //votes post received, default =1
-    deleted: false, //flag if post has been deleted, default=false
-  }],
-  comments: [{
-    id: '4gt5itihjkhg8', //later it will be from uuid later
-    parentId: 0, //id of parent post ??
-    timestamp: 0, //it will be generated from moment or Date.now()
-    body: 'In my opinion I say Redux is...',
-    author: 'Alan Touring',//later will be coming from an user <input>
-    voteScore: 1, //votes comment received, default =1
-    deleted: false, //flag if post has been deleted, default=false
-    parentDeleted: false, //flag for when the parent post has been deleted, not the comment
-  }],
-  filters: {
-    sortBy: 'date', //date or voteScore
+const posts = (state=postsDefaultState, action) => {
+  console.log('log actions: ', action);
+  switch(action.type){
+    case REFRESH_CATEGORY:
+    return {
+      ...state,
+      didRefresh: true
+    }
+    case REQUEST_POSTS:
+      return {
+        ...state,
+        isFetching: true,
+        didRefresh: false
+      }
+      case RECEIVED_POSTS:
+        return {
+          ...state,
+          isFetching: false,
+          didRefresh: false,
+          items: action.posts
+        }
+    default:
+      return state
   }
 }
 
-//Posts reducer
-const postsReducerDefaultState = []
-
-export const postsReducer = (state=postsReducerDefaultState, action) => {
-  console.log('log actions: ', action);
-  switch(action.type){
-    case FETCH_POSTS:
-    return action.posts
-    case ADD_POST:
-      return [
+//post by category
+const postsByCategory = (state = {}, action) => {
+  switch (action.type) {
+    case REFRESH_CATEGORY:
+    case RECEIVED_POSTS:
+    case REQUEST_POSTS:
+      return {
         ...state,
-        action.post
-      ]
-    case REMOVE_POST:
-      return state.filter(({ id }) => {
-        return id !== action.id
-      })
-    case EDIT_POST:
-      return state.map((post) => {
-        if(post.id === action.id) {
-          return {
-            ...post,
-            ...action.updates
+        [action.category]: posts(state[action.category], action)
+      }
+      case ADD_POST:
+        return [
+          ...state,
+          action.post
+        ]
+      case REMOVE_POST:
+        return state.filter(({ id }) => {
+          return id !== action.id
+        })
+      case EDIT_POST:
+        return state.map((post) => {
+          if(post.id === action.id) {
+            return {
+              ...post,
+              ...action.updates
+            }
+          }else {
+            return post
           }
-        }else {
-          return post
-        }
-      })
+        })
     default:
       return state
   }
@@ -68,7 +82,9 @@ const filtersReducerDefaultState = {
   sortBy:'date'
 }
 
-export const filtersReducer = (state=filtersReducerDefaultState, action) => {
+//use SET_TEXT_FILTER to implement a filtered search - if have time
+
+const filtersReducer = (state=filtersReducerDefaultState, action) => {
   switch (action.type) {
     case SET_TEXT_FILTER:
       return {
@@ -89,3 +105,10 @@ export const filtersReducer = (state=filtersReducerDefaultState, action) => {
       return state
   }
 }
+
+const rootReducer = combineReducers({
+  selectedCategory,
+  postsByCategory,
+})
+
+export default rootReducer
